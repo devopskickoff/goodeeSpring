@@ -1,0 +1,18 @@
+package com.spring.test.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class TestController {
+	
+	
+	@RequestMapping(value = "/test")
+	//ModelAndView : 데이터와 뷰정보를 담고 있다.
+	public ModelAndView test(ModelAndView mav) {
+		
+		return mav;
+	}
+	
+}
