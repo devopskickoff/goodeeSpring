@@ -82,4 +82,19 @@ public class TestController {
 		return mav;
 		
 	}
+	
+	@RequestMapping(value="/testGugu")
+	public ModelAndView testGuguRes(ModelAndView mav) {
+		mav.setViewName("test/testGugu");
+		return mav;
+			
+	}
+	
+	@RequestMapping(value="/testGuguRes")
+	public ModelAndView testGuguRes(@RequestParam int no, ModelAndView mav) {
+		mav.addObject("list",iTestService.gugudan(no));
+		mav.setViewName("test/testGuguRes");
+		return mav;
+			
+	}
 }
