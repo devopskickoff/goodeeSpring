@@ -14,8 +14,14 @@ public class TestService implements ITestService{
 	public ITestDao iTestDao;
 
 	@Override
-	public List<HashMap<String, String>> getB1List() throws Throwable {
+	public List<HashMap<String, String>> getB1List(HashMap<String,String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iTestDao.getB1List();
+		return iTestDao.getB1List(params);
+	}
+
+	@Override
+	public HashMap<String, String> getB1(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iTestDao.getB1(params);
 	}
 }

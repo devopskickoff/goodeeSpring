@@ -1,7 +1,0 @@
-package com.spring.service;
-
-public interface ITestService {
-
-	public void test();
-
-}

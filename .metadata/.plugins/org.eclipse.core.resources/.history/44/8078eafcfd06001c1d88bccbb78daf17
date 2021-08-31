@@ -1,6 +1,0 @@
-package com.spring.service;
-
-@Service
-public class TestService implements ITestService{
-
-}

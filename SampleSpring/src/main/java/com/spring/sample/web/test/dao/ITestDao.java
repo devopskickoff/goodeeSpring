@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface ITestDao {
 
-	List<HashMap<String, String>> getB1List() throws Throwable;
+	public List<HashMap<String, String>> getB1List(HashMap<String,String> params) throws Throwable;
+
+	public HashMap<String, String> getB1(HashMap<String, String> params) throws Throwable;
 
 }
