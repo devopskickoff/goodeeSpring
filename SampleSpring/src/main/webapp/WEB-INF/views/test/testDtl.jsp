@@ -11,17 +11,38 @@
 <script>
 $(document).ready(function(){
 	$('#listBtn').on("click",function(){
-		location.href ="testList";
+		$("#actionForm").attr("action","testList");
+		$("#actionForm").submit();
 	});
+	
+	$('#updateBtn').on("click",function(){
+		$("#actionForm").attr("action","testUpdate");
+		$("#actionForm").submit();
+	});
+	
+	$("#deleteBtn").on("click",function(){
+		if(confirm("삭제하시겠습니까?")){
+			$("#actionForm").attr("action","testDelete");
+			$("#actionForm").submit();	
+		}
+	})
 });
 </script>
 </head>
 <body>
-번호 : ${data.NO}</br>
-제목 : ${data.TITLE}</br>
-작성자 : ${data.WRITER}</br>
-작성일 : ${data.DT}</br>
-내용 : ${data.CON}</br>
+<form action="#" id="actionForm" method="post">
+	<input type="hidden" name="no" value="${param.no}"/>
+	<input type="hidden" name="searchGbn" value="${param.searchGbn}"/>
+	<input type="hidden" name="searchTxt" value="${param.searchTxt}"/>
+	
+</form> 
+번호 : ${data.NO}<br/>
+제목 : ${data.TITLE}<br/>
+작성자 : ${data.WRITER}<br/>
+작성일 : ${data.DT}<br/>
+내용 : ${data.CON}<br/>
+<input type="button" value="수정" id="updateBtn"/>
+<input type="button" value="삭제" id="deleteBtn"/>
 <input type="button" value="목록으로" id="listBtn"/>
 </body>
 </html>

@@ -6,14 +6,15 @@
 		select
 		no,title,writer,to_char(dt, 'yyyy-mm-dd') as dt
 		from b1
-		where 1 = 1
+		where 1 =
+		1
 		<if test="searchTxt != null and searchTxt !=''">
 			<choose>
 				<when test="searchGbn eq 0">
-					and title like '%'||${searchTxt}||'%'
+					and title like '%'||#{searchTxt}||'%'
 				</when>
 				<when test="searchGbn eq 1">
-					and writer like '%'||${searchTxt}||'%'
+					and writer like '%'||#{searchTxt}||'%'
 				</when>
 			</choose>
 		</if>
@@ -27,4 +28,25 @@
 		WHERE NO =
 		#{no}
 	</select>
+
+	<insert id="addB1" parameterType="hashmap">
+		INSERT INTO
+		B1(NO,TITLE,WRITER,CON)
+		VALUES
+		(B1_SEQ.NEXTVAL,#{title},#{writer},#{con})
+	</insert>
+
+	<update id="updateB1" parameterType="hashmap">
+		UPDATE B1 SET TITLE
+		=#{title},
+		WRITER = #{writer},
+		CON = #{con}
+		WHERE NO = #{no}
+	</update>
+
+	<delete id="deleteB1" parameterType="hashmap">
+		DELETE FROM B1
+		WHERE NO = #{no}
+	</delete>
+
 </mapper>

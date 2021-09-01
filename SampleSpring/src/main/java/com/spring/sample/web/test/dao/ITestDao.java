@@ -9,4 +9,10 @@ public interface ITestDao {
 
 	public HashMap<String, String> getB1(HashMap<String, String> params) throws Throwable;
 
+	public int addB1(HashMap<String, String> params) throws Throwable;
+
+	public int updateB1(HashMap<String, String> params) throws Throwable;
+
+	public int deleteB1(HashMap<String, String> params) throws Throwable;
+
 }

@@ -24,4 +24,22 @@ public class TestService implements ITestService{
 		// TODO Auto-generated method stub
 		return iTestDao.getB1(params);
 	}
+
+	@Override
+	public int addB1(HashMap<String, String> params) throws Throwable {
+		
+		return iTestDao.addB1(params);
+	}
+
+	@Override
+	public int updateB1(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iTestDao.updateB1(params);
+	}
+
+	@Override
+	public int deleteB1(HashMap<String, String> params) throws Throwable {
+		System.out.println(params);
+		return iTestDao.deleteB1(params);
+	}
 }
