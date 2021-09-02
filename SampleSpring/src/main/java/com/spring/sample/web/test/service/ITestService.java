@@ -15,4 +15,6 @@ public interface ITestService {
 
 	public int deleteB1(HashMap<String, String> params) throws Throwable;
 
+	public int getB1Cnt(HashMap<String, String> params) throws Throwable;
+
 }

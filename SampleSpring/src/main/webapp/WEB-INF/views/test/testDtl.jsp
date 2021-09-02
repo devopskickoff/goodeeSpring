@@ -34,6 +34,7 @@ $(document).ready(function(){
 	<input type="hidden" name="no" value="${param.no}"/>
 	<input type="hidden" name="searchGbn" value="${param.searchGbn}"/>
 	<input type="hidden" name="searchTxt" value="${param.searchTxt}"/>
+	<input type="hidden" name="page" value="${param.page}" />
 	
 </form> 
 번호 : ${data.NO}<br/>

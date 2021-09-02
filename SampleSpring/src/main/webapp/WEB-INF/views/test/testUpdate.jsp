@@ -43,6 +43,7 @@ function checkVal(sel){
 <form action="testUpdates" id="updateForm" method="post">
 	<input type="hidden" name="searchGbn" value="${param.searchGbn}"/>
 	<input type="hidden" name="searchTxt" value="${param.searchTxt}"/>
+	<input type="hidden" name="page" value="${param.page}" />
 <input type="hidden" name="no" value="${data.NO}"/>
 번호:${data.NO}
 제목 <input type="text" id="title" name="title" value="${data.TITLE}"/><br/>

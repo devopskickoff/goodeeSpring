@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.sample.common.bean.PagingBean;
+import com.spring.sample.common.service.IPagingService;
 import com.spring.sample.web.test.service.ITestService;
 
 @Controller
@@ -17,12 +19,28 @@ public class TestController {
 	@Autowired
 	public ITestService iTestService;
 	
+	@Autowired
+	public IPagingService iPagingService;
+	
 	@RequestMapping(value="/testList")
 	public ModelAndView testList(
 			@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable{
+		
+		int page = 1; //현재 p변수
+		if(params.get("page")!=null) { //넘어오는 현재 p데이터가 존재 시 
+			page = Integer.parseInt(params.get("page"));
+		}
+		
+		int cnt = iTestService.getB1Cnt(params); //총 게시글 개수
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt);
+		params.put("startCnt",Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+		
 		List<HashMap<String,String>> list = iTestService.getB1List(params);
-		System.out.println(list);
+		mav.addObject("page", page);
+		mav.addObject("pb", pb);
 		mav.addObject("list", list);
 		mav.setViewName("test/testList");
 		return mav;

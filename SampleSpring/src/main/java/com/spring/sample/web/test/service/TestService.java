@@ -42,4 +42,10 @@ public class TestService implements ITestService{
 		System.out.println(params);
 		return iTestDao.deleteB1(params);
 	}
+
+	@Override
+	public int getB1Cnt(HashMap<String, String> params) throws Throwable {
+		
+		return iTestDao.getB1Cnt(params);
+	}
 }
