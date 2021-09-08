@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="m"> 
+	<!-- resultType="java.util.Hashmap" -->
+<!-- 
+
+	<select id="getB1Cnt" parameterType="hashmap"
+		resultType="Integer">
+		SELECT COUNT(*)
+		FROM B1
+		WHERE 1=1
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn eq 0">
+					AND TITLE LIKE '%'||#{searchTxt}||'%'
+				</when>
+				<when test="searchGbn eq 1">
+					AND WRITER LIKE '%'||#{searchTxt}||'%'
+				</when>
+			</choose>
+		</if>
+	</select>
+
+
+	<select id="getMList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT M_NO, M_ID, M_PW, M_NM, M_PHONE, TO_CHAR(M_JOIN,'YYYY-YY-DD')
+		FROM M1
+		WHERE 1=1
+		<if test="searchTxt != null and searchTxt!=''">
+			<choose>
+				<when test="searchGbn eq 0">
+					AND M_ID LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 1">
+					AND M_NM LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+		</if>
+	</select>
+-->
+	<select id="getM1" parameterType="hashmap" resultType="hashmap">
+		SELECT
+		M_NO, M_ID, M_PW, M_NM, M_PHONE, TO_CHAR(M_JOIN,'YYYY-YY-DD')
+		FROM M1
+		WHERE M_NO = #{m_no}
+	</select>
+
+	<insert id="addM1" parameterType="hashmap">
+		insert into M1(M_NO, M_ID,
+		M_PW, M_NM, M_PHONE, M_JOIN)
+		values
+		(M1_seq.nextval,#{m_id},#{m_pw},#{m_nm},#{m_phone},SYSDATE)
+	</insert>
+
+	<delete id="deleteM1" parameterType="hashmap">
+		DELETE FROM M1
+		WHERE
+		M_NO = #{m_no}
+	</delete> 
+
+	<select id="getM1List" parameterType="hashmap" resultType="hashmap">
+		SELECT M.M_NO, M.M_ID, M.M_NM, M.M_PHONE
+		FROM (SELECT M_NO, M_ID, M_NM, M_PHONE,
+		ROW_NUMBER() OVER(ORDER BY M_NO DESC) AS RNUM
+		FROM M1
+		WHERE 1=1
+		)M
+
+		WHERE M.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>	
+	
+		<select id="getMList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT M_NO, M_ID, M_PW, M_NM, M_PHONE, TO_CHAR(M_JOIN,'YYYY-YY-DD')
+		FROM M1
+		WHERE 1=1
+		<if test="searchTxt != null and searchTxt!=''">
+			<choose>
+				<when test="searchGbn eq 0">
+					AND M_ID LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 1">
+					AND M_NM LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+		</if>
+	</select>
+	<select id="getM1IdCheck" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*) AS CNT 
+		FROM M1
+		WHERE M_ID = #{m_id}
+	</select>
+
+	
+</mapper>
