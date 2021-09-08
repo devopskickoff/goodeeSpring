@@ -39,10 +39,27 @@ $(document).ready(function(){
       $("#page").val($(this).attr("page"));
       $("#searchForm").submit();
    });
+   
+   $("#loginBtn").on("click",function(){
+	  location.href = "testLogin"; 
+   });
+   
+   $("#logoutBtn").on("click",function(){
+		  location.href = "testLogout"; 
+	   });
 }); // document ready end
 </script>
 </head>
 <body>
+<c:choose>
+	<c:when test="${empty sMNo}">
+		<input type="button" value="로그인" id="loginBtn"/>
+	</c:when>
+	<c:otherwise>
+		${sMNm}님 어서오세요.
+		<input type="button" value="로그아웃" id="logoutBtn"/>
+	</c:otherwise>
+</c:choose>
 <form action="testDtl" id="dtlForm" method="post">
    <input type="hidden" name="no" id="no" />
    <input type="hidden" name="searchGbn" id="dtlGbn" value="${param.searchGbn}" />

@@ -43,8 +43,8 @@
 
 <body>
 	<form action="testAdds" id="addForm" method="post">
-		제목 <input type="text" id="title" name="title" /><br /> 작성자 <input
-			type="text" id="writer" name="writer" /><br /> 내용<br />
+		제목 <input type="text" id="title" name="title" /><br /> 아이디 <input
+			type="text" id="writer" name="writer" /><br /> 이름<br />
 		<textarea rows="8" cols="40" id="con" name="con"></textarea>
 	</form>
 	<input type="button" value="저장" id="addBtn" />

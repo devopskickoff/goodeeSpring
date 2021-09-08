@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test">
    <!-- resultType="java.util.Hashmap" -->
+   
+   <!--  -->
    <!-- mybatis-config에 별칭으로 설정해놓음. -->
    <select id="getB1List" parameterType="hashmap" resultType="hashmap">
       SELECT B1.NO,B1.TITLE,B1.WRITER,B1.DT
@@ -46,6 +48,7 @@
       WHERE NO=#{no}
    </delete>
    
+   <!-- 전체 카운트를 가져와서 글 개수를 확인 하기 위함 -->
    <select id="getB1Cnt" parameterType="hashmap" resultType="Integer">
       SELECT COUNT(*)
       FROM B1

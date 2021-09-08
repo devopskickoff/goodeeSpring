@@ -42,6 +42,7 @@ public class TestDao implements ITestDao {
 	@Override
 	public int getB1Cnt(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
+		
 		return sqlSession.selectOne("test.getB1Cnt",params);
 	}
 
