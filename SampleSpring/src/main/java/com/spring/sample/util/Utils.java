@@ -35,17 +35,20 @@ public class Utils {
 	 * @throws Throwable
 	 */
 	public static String encryptAES128(String value) throws Throwable {
+		// 열쇠 만들고 암호화 이중으로 하고 암호화가 어려운건 뭘 더 섞냐에 따라 암호화가 달라짐 
+		
+		//SecretKeySpec : 암호화된 암호화 키 생성
 		SecretKeySpec keySpec 
 				= new SecretKeySpec(CommonProperties.SECURE_KEY.getBytes("UTF-8"), "AES");
-
-		Cipher cipher = Cipher.getInstance("AES");
-		cipher.init(Cipher.ENCRYPT_MODE, keySpec);
+		//Cipher : 암호화 객체 
+		Cipher cipher = Cipher.getInstance("AES"); // .getInstance (방식):암호화 방식 지정
+		cipher.init(Cipher.ENCRYPT_MODE, keySpec); // init(모드, 키) : 객체 초기화
 		byte[] encrypted = cipher.doFinal(value.getBytes()); // 암호화
 		
-		Encoder encoder = Base64.getEncoder();
+		Encoder encoder = Base64.getEncoder(); // Encoder : Base64방식의 인코더
 		
 		String encodeString = encoder.encodeToString(encrypted); // 바이트 타입의 배열을 문자열로 변환
-
+		
 		return encodeString;
 	}
 
@@ -56,15 +59,17 @@ public class Utils {
 	 * @throws Throwable
 	 */
 	public static String decryptAES128(String value) throws Throwable {
-		SecretKeySpec keySpec = new SecretKeySpec(CommonProperties.SECURE_KEY.getBytes("UTF-8"), "AES");
-
+		//암호화키 생성
+		SecretKeySpec keySpec = 
+				new SecretKeySpec(CommonProperties.SECURE_KEY.getBytes("UTF-8"), "AES");
+		// 복호화 모드 암호화객체 생성 
 		Cipher cipher = Cipher.getInstance("AES");
 		cipher.init(Cipher.DECRYPT_MODE, keySpec);
-		
+		// Base64 디코더
 		Decoder decoder = Base64.getDecoder();
-		
+		//base64 복호화 
 		byte[] decodeBytes = decoder.decode(value); //문자열 형태의 파라메터를 배열에 바이트 변환 후 삽입
-
+		//AES128 복호화
 		byte[] decryptBytes = cipher.doFinal(decodeBytes); // 복호화
 
 		return new String(decryptBytes);

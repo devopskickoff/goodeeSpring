@@ -35,6 +35,8 @@ public class CommonProperties {
 	
 	/**
 	 * 암호화키(AES기반 16글자)
+	 * secure_key는 해독키임 
+	 * AES128이라 16글자 
 	 */
 	public static final String SECURE_KEY = "goodeesmart12345";
 }

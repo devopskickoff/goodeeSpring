@@ -62,10 +62,10 @@
 	
 	<update id="updateM1" parameterType="hashmap">
 		UPDATE M1 SET M_NM = #{nm},
-			<if test="pw != null and pw != ''">
-			 M_PW = #{pw},
-			 </if>
-		     M_PHONE = #{phone}
+					  <if test="pw != null and pw != ''">
+					  M_PW = #{pw},
+					  </if>
+		              M_PHONE = #{phone}
 		WHERE M_NO = #{no}
 	</update>
 	
@@ -75,11 +75,11 @@
 	</delete>
 	
 	<select id="getM1Login" parameterType="hashmap" resultType="hashmap">
-		SELECT M_NO, M_NM
+		SELECT M_NO,M_NM
 		FROM M1
-		WHERE M_ID = #{id}
-		AND M_PW = #{pw}
-	</select>
+		WHERE M_ID=#{id}
+		AND M_PW=#{pw}
+	</select>	
 </mapper>
 
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="testO">
+	<select id="getO1List" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT O_NO, M.M_NO, M.M_NM, CON, DT
+		FROM O1 O, M1 M
+		WHERE O.M_NO = M.M_NO
+
+	</select>
+	
+	<update id="updateO1" parameterType="hashmap">
+		UPDATE O1 SET CON = #{con} 
+		WHERE O_NO = #{no}
+	</update>
+	
+	<delete id="deleteO1" parameterType="hashmap">
+		DELETE FROM O1 	
+		WHERE 
+		O_NO = #{no}
+	</delete>
+	
+	<insert id="addO1" parameterType="hashmap">
+		INSERT INTO O1(O_NO, M_NO, CON)
+		VALUES (O1_SEQ.NEXTVAL, #{m_no}, #{con})
+	</insert>
+</mapper>
