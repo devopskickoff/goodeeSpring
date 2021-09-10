@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TestODao implements ITestODao{
+public class PSWTestODao implements PSWITestODao{
 
 	@Autowired
 	public SqlSession sqlSession;
@@ -36,6 +36,12 @@ public class TestODao implements ITestODao{
 		// TODO Auto-generated method stub
 		System.out.println("DDDDDDDAAAAAAOOOOOOOOO"+params);
 		return sqlSession.insert("testO.addO1",params);
+	}
+
+	@Override
+	public int getO1Cnt(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("testO.getO1Cnt",params);
 	}
 
 }

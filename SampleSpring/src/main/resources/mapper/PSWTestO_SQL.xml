@@ -3,9 +3,13 @@
 <mapper namespace="testO">
 	<select id="getO1List" parameterType="hashmap"
 		resultType="hashmap">
-		SELECT O_NO, M.M_NO, M.M_NM, CON, DT
-		FROM O1 O, M1 M
-		WHERE O.M_NO = M.M_NO
+		SELECT O2.O_NO, O2.M_NO, O2.M_NM, O2.CON, O2.DT
+		FROM (
+			SELECT O_NO, M.M_NO, M.M_NM, O.CON, O.DT, ROW_NUMBER() OVER(ORDER BY O_NO DESC) AS RNUM
+			FROM O1 O, M1 M
+			WHERE O.M_NO = M.M_NO)
+			O2
+		WHERE O2.RNUM BETWEEN #{startCnt} AND #{endCnt}
 
 	</select>
 	
@@ -24,4 +28,12 @@
 		INSERT INTO O1(O_NO, M_NO, CON)
 		VALUES (O1_SEQ.NEXTVAL, #{m_no}, #{con})
 	</insert>
+	
+	<select id="getO1Cnt" resultType="Integer">
+		SELECT COUNT(*)
+		FROM (
+			SELECT O_NO, M.M_NO, M.M_NM, CON, DT 
+			FROM O1 O, M1 M
+			WHERE O.M_NO = M.M_NO)
+	</select>
 </mapper>

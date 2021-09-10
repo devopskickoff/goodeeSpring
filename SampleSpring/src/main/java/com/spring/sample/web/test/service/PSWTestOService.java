@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.sample.web.test.dao.ITestODao;
+import com.spring.sample.web.test.dao.PSWITestODao;
 
 @Service
-public class TestOService implements ITestOService{
+public class PSWTestOService implements PSWITestOService{
 
 	@Autowired
-	public ITestODao iTestDao;
+	public PSWITestODao iTestDao;
 	@Override
 	public List<HashMap<String, String>> getO1List(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
@@ -32,6 +32,11 @@ public class TestOService implements ITestOService{
 	public int addO1(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
 		return iTestDao.addO1(params);
+	}
+	@Override
+	public int getO1Cnt(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iTestDao.getO1Cnt(params);
 	}
 
 }

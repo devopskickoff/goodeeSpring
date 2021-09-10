@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.sample.common.bean.PagingBean;
 import com.spring.sample.common.service.IPagingService;
-import com.spring.sample.web.test.service.ITestOService;
+import com.spring.sample.web.test.service.PSWITestOService;
 
 @Controller
-public class TestOController {
+public class PSWTestOController {
 
 	@Autowired
-	public ITestOService iTestOService;
+	public PSWITestOService iTestOService;
 	
 	@Autowired
 	public IPagingService iPagingService;
@@ -26,9 +27,20 @@ public class TestOController {
 	public ModelAndView testO (
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
+		int page=1;
+		if(params.get("page")!=null) {
+			page = Integer.parseInt(params.get("page"));
+		}
+
+		int cnt = iTestOService.getO1Cnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt,10,3);
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
 		
 		List<HashMap<String,String>> list = iTestOService.getO1List(params);
-		System.out.println(list);
+		mav.addObject("page",page);
+		mav.addObject("pb",pb);
 		mav.addObject("list",list);
 		mav.setViewName("testO/testO");
 		return mav;
@@ -38,7 +50,13 @@ public class TestOController {
 	public ModelAndView addO(@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable {
 		int cnt = iTestOService.addO1(params);
-		mav.setViewName("redirect:testO");
+		if (cnt > 0) {
+			mav.addObject("page",params.get("page"));
+			mav.setViewName("redirect:testO");
+		} else {
+			mav.addObject("msg", "입력에러가 발생했습니다");
+			mav.setViewName("testO/failedAction");			
+		}
 		return mav;
 	}
 	
@@ -47,7 +65,15 @@ public class TestOController {
 	public ModelAndView updateO (@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
 		int cnt = iTestOService.updateO1(params);
-		mav.setViewName("redirect:testO");
+		
+		if (cnt > 0) {
+			mav.addObject("page",params.get("page"));
+			mav.setViewName("redirect:testO");	
+		} else {
+			mav.addObject("msg", "수정에러가 발생했습니다");
+			mav.setViewName("testO/failedAction");			
+		}
+		
 		return mav;
 	}
 	
@@ -56,7 +82,15 @@ public class TestOController {
 			ModelAndView mav) throws Throwable {
 		System.out.println("testttttttttttttt"+params);
 		int cnt = iTestOService.deleteO1(params);
-		mav.setViewName("redirect:testO");
+		
+		if (cnt > 0) {
+			mav.addObject("page",params.get("page"));
+			mav.setViewName("redirect:testO");
+		} else {
+			mav.addObject("msg", "삭제에러가 발생했습니다");
+			mav.setViewName("testO/failedAction");			
+		}
+		
 		return mav;
 	}
 }

@@ -190,17 +190,39 @@ body {
 		});
 		
 		$(".write_area").on("click","#updateBtn",function(){
-			$("#actionForm").attr("action","updateO");
-			$("#actionForm").submit();
+			if(checkVal(".write_con")){
+				$("#actionForm").attr("action","updateO");
+				$("#actionForm").submit();	
+			} else {
+				alert("댓글 내용이 없습니다!");
+			}
 		});
 		
 		$(".write_area").on("click","#addBtn",function(){
-			alert("Test");
-			$("#actionForm").attr("action","addO");
+			if(checkVal(".write_con")){
+				$("#actionForm").attr("action","addO");
+				$("#actionForm").submit();	
+			} else {
+				alert("댓글 내용이 없습니다!");
+			}
+		});
+		
+		$(".paging_wrap").on("click", "span", function() {
+			$("#page").val($(this).attr("page"));
+			$("#actionForm").attr("action", "testO");
 			$("#actionForm").submit();
 		});
 		
+		$(".write_area .action_btn2").hide();
+		
 	});
+	
+	function checkVal(sel) {
+		if($(sel).val()==null||$(sel).val()==""){
+			return false;
+		}
+		return true;
+	}
 </script>
 </head>
 <body>
@@ -224,6 +246,11 @@ body {
 	<c:choose>
 		<c:when test="${ empty sMNo }">
 			<!-- 비 로그인 시 -->
+			<form action="#" id="actionForm" method="post">
+			<input type="hidden" id="m_no" name="m_no" value="${sMNo}">
+			<input type="hidden" id="no" name="no"/>
+			<input type="hidden" id="page" name="page" value="${page}">
+			</form>
 			<div class="login_req_wrap">
 				<div class="login_req">작성 시 로그인이 필요합니다. <input type="button" value="로그인" id="loginBtn"/></div>
 			</div>
@@ -232,6 +259,7 @@ body {
 			<form action="#" id="actionForm" method="post">
 			<input type="hidden" id="m_no" name="m_no" value="${sMNo}">
 			<input type="hidden" id="no" name="no"/>
+			<input type="hidden" id="page" name="page" value="${page}">
 			<div class="user_info">
 				<div class="user_name">${sMNm}</div>
 			</div>
@@ -279,11 +307,33 @@ body {
 	</div>
 	<!-- Paging -->
 	<div class="paging_wrap">
-		<span>이전</span>
-		<span><b>1</b></span>
-		<span>2</span>
-		<span>다음</span>
-	</div>
+	<c:choose>
+		<c:when test="${page eq 1}">
+			<span page="1">이전</span>
+		</c:when>
+		<c:otherwise>
+			<span page="${page - 1}">이전</span>
+		</c:otherwise>
+	</c:choose>
+	<c:forEach var="i" begin="${pb.startPcount}" end="${pb.endPcount}" step="1">
+		<c:choose>
+			<c:when test="${page eq i}">
+				<span page="${i}"><b>${i}</b></span>
+			</c:when>
+			<c:otherwise>
+				<span page="${i}">${i}</span>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+	<c:choose>
+		<c:when test="${page eq pb.maxPcount}">
+			<span page="${pb.maxPcount}">다음</span>
+		</c:when>
+		<c:otherwise>
+			<span page="${page + 1}">다음</span>
+		</c:otherwise>
+	</c:choose>
+</div>
 </div>
 </body>
 </html>
