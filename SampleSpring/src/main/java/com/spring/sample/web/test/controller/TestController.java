@@ -116,4 +116,11 @@ public class TestController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/testj")
+	public ModelAndView testj(ModelAndView mav) {
+		
+		mav.setViewName("test/testj");
+		return mav;
+	}
+	
 }

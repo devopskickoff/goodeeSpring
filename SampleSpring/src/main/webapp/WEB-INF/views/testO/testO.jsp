@@ -215,7 +215,7 @@ body {
 		
 		$(".write_area .action_btn2").hide();
 		
-	});
+	}); 
 	
 	function checkVal(sel) {
 		if($(sel).val()==null||$(sel).val()==""){
