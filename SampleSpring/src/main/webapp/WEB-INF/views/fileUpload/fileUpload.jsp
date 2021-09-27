@@ -15,26 +15,17 @@
 $(document).ready(function() {
 	$("#uploadBtn").on("click", function(){
 		var fileForm = $("#fileForm");
-		
-		fileForm.ajaxForm({ //보내기전 validation check가 필요할경우 
+		//ajaxForm : form의 동작을 ajax형태로 변화시킨다
+		fileForm.ajaxForm({ //보내기전 validation check가 필요할경우
+			//보내기전 validation check가 필요한경우
 			beforeSubmit: function (data, frm, opt) { 
-				alert("전송전!!"); return true;
-			}, //submit이후의 처리
-			success: function(responseText, statusText){
-				if(responseText.result =="SUCCESS"){
-//					var resData = eval("(" + removePre(data) + ")");
-//					alert("저장완료");
-//					alert(data);
-//					alert(resData.fileName[0]);
-//					alert(resData.fileName[1]);
-//					alert(resData.fileName[2]);
-//					var resData = eval("(" + removePre(data) + ")");
+				alert("전송전!!"); return true; // ajax실행전 종료를 원하면 return false
+			}, 
+			//submit이후의 처리
+			success: function(res){
+				if(res.result =="SUCCESS"){
 					alert("저장완료");
-					
 					console.log(responseText);
-					alert(responseText.fileName[0]);
-					alert(responseText.fileName[1]);
-					alert(responseText.fileName[2]);
 				} else {
 					alert("저장실패");
 				} 
@@ -43,43 +34,17 @@ $(document).ready(function() {
 				alert("에러발생!!"); 
 			}
 		});
-		
 		fileForm.submit();
 	});
 });
 
-function uploadResultCallBack(result){
-	if(result.result =="SUCCESS"){
-//		var resData = eval("(" + removePre(data) + ")");
-//		alert("저장완료");
-//		alert(data);
-//		alert(resData.fileName[0]);
-//		alert(resData.fileName[1]);
-//		alert(resData.fileName[2]);
-//		var resData = eval("(" + removePre(data) + ")");
-		alert("저장완료");
-		alert(result.fileName[0]);
-		alert(result.fileName[1]);
-		alert(result.fileName[2]);
-	} else {
-		alert("저장실패");
-	}
-}
 
-function removePre(data) {
-	if(data.indexOf("<pre>") > -1) {
-		var st = data.indexOf(">"); 
-		var ed = data.indexOf("<", st);
-		
-		return data.substring(st + 1, ed);
-	} else {
-		return data;
-	}
-}
 </script>
 </head>
 <body>
-<form id="fileForm" name="fileForm" action="fileUploadAjax" method="post" enctype="multipart/form-data">
+<form id="fileForm" name="fileForm" action="fileUploadAjax" 
+	method="post" enctype="multipart/form-data">
+<!-- enctype : 넘겨주는 데이터의 형태 지정 -->
 <h3> 첨부파일</h3>
 <table width="770"border="0" cellspacing="0" cellpadding="0" class="table_1">
 	<colgroup>

@@ -5,7 +5,7 @@
 		select count(*) AS CNT
 		from B2 B INNER JOIN M1 M
 		                 ON B.M_NO = M.M_NO
-		WHERE 1 =1 
+		WHERE B.B_DEL = 1
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchGbn eq 0">
@@ -19,13 +19,13 @@
 	</select>
 	
 	<select id="getABList" parameterType="hashmap" resultType="hashmap">
-		SELECT B.B_NO, B.B_TITLE, B.M_NM, B.B_DT, B.B_HIT
+		SELECT B.B_NO, B.B_TITLE, B.M_NM, B.B_DT, B.B_HIT, B.B_FILE
 		FROM    (SELECT B.B_NO, B.B_TITLE, M.M_NM,
-		        TO_CHAR(B.B_DT, 'YYYY-MM-DD') AS B_DT, B_HIT,
+		        TO_CHAR(B.B_DT, 'YYYY-MM-DD') AS B_DT, B_HIT, B.B_FILE,
 		        ROW_NUMBER() OVER(ORDER BY B.B_NO DESC) AS RNUM
 		    FROM B2 B INNER JOIN M1 M
 		                    ON B.M_NO = M.M_NO
-		            WHERE 1=1      
+		            WHERE B.B_DEL = 1      
 		       		<if test="searchTxt != null and searchTxt != ''">
 					<choose>
 						<when test="searchGbn eq 0">
@@ -39,4 +39,38 @@
 		            ) B
 		WHERE B.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
+	
+	<insert id="abAdd" parameterType="hashmap">
+		INSERT INTO B2(B_NO, M_NO, B_TITLE, B_CON, B_FILE)
+		VALUES(B2_SEQ.NEXTVAL, #{mno}, #{title}, #{con}, #{bFile})
+	
+	</insert>
+	
+	<select id="getAB" parameterType="hashmap" resultType="hashmap">
+		SELECT B.B_NO, B.B_TITLE, M.M_NO, M.M_NM, B.B_CON, B.B_FILE,
+        TO_CHAR(B_DT, 'YYYY-MM-DD') AS B_DT , B_HIT
+		FROM B2 B INNER JOIN M1 M
+		            ON B.M_NO = M.M_NO
+		WHERE 1 = 1
+		AND B.B_NO = #{no}
+	</select>
+	
+	<update id="abUpdate" parameterType="hashmap">
+		UPDATE B2 SET B_TITLE = #{title},
+            			B_CON = #{con},
+            			B_FILE = #{bFile}
+		WHERE B_NO = #{no}
+		AND M_NO = #{mno}
+	</update>
+	
+	<update id="abDelete" parameterType="hashmap">
+		UPDATE B2 SET B_DEL = 0
+		WHERE B_NO = #{no}	
+	</update>
+	
+	<update id="updateABHit" parameterType="hashmap">
+		UPDATE B2 SET B_HIT  = B_HIT + 1
+		WHERE B_NO = #{no} 
+	
+	</update>
 </mapper>

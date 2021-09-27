@@ -25,4 +25,34 @@ public class TestADao implements ITestADao{
 		return sqlSession.selectList("testA.getABList",params) ;
 	}
 
+	@Override
+	public int abAdd(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("testA.abAdd", params);
+	}
+
+	@Override
+	public HashMap<String, String> getAB(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("testA.getAB",params);
+	}
+
+	@Override
+	public int abUpdate(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("testA.abUpdate",params);
+	}
+
+	@Override
+	public int abDelete(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("testA.abDelete");
+	}
+
+	@Override
+	public void updateABHit(HashMap<String, String> params) throws Throwable {
+		sqlSession.update("testA.updateABHit",params);
+		
+	}
+
 }

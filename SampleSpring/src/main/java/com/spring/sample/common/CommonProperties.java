@@ -22,9 +22,9 @@ public class CommonProperties {
 	 * 파일 업로드
 	 */
 	//파일 업로드 경로
-	public static final String FILE_UPLOAD_PATH = "C:\\MyWork\\workspace\\.metadata\\.plugins"
-												+ "\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps"
-												+ "\\SampleSpring\\resources\\upload";
+	public static final String FILE_UPLOAD_PATH = "C:\\javaSpring\\.metadata\\.plugins\\"	
+												+ "org.eclipse.wst.server.core\\tmp0\\wtpwebapps"
+												+ "\\SampleSpringTest\\resources\\upload";
 	
 	//파일 다운로드 경로
 	public static final String FILE_DOWNLOAD_PATH = "http://localhost:8080/sample";
